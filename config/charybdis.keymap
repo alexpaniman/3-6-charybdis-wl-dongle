@@ -1,9 +1,29 @@
 #include <behaviors.dtsi>
+#include <behaviors/mouse_keys.dtsi>
 #include <dt-bindings/zmk/bt.h>
 #include <dt-bindings/zmk/ext_power.h>
 #include <dt-bindings/zmk/keys.h>
 #include <dt-bindings/zmk/mouse.h>
 #include <dt-bindings/zmk/outputs.h>
+
+#define U_TAPPING_TERM 150
+
+#define TAPHOLD_SYMBOL(NAME, TAP, HOLD) \
+     NAME: NAME { \
+        compatible = "zmk,behavior-hold-tap"; \
+        label = ZMK_MACRO_STRINGIFY(NAME); \
+        #binding-cells = <2>; \
+        tapping-term-ms = <TAPPING_TERM>; \
+        flavor = "tap-preferred"; \
+        quick-tap-ms = <QUICK_TAP_TERM>; \
+        require-prior-idle-ms = <QUICK_TAP_TERM>; \
+        bindings = <HOLD>, <TAP>; \
+    };
+
+
+/ {
+    chosen { zmk,matrix_transform = &default_transform; };
+};
 
 / {
     trackball_listener {
